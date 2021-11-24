@@ -56,7 +56,7 @@ jobs:
 
       - name: download sqUTRquant files
         run: |
-          cd $GITHUB_WORKSPACE/scUTRquant/extdata
+          cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/utrome_mm10_v1
           . download_utrome.sh
           cd $GITHUB_WORKSPACE/scUTRquant/extdata/bxs
           . download_10X_whitelists.sh
