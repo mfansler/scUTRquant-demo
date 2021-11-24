@@ -10,7 +10,7 @@ jobs:
       run:
         shell: bash -l {0}
     env:
-      SQ_PATH: /Users/runner/scUTRquant
+      SQ_PATH: ${{ env.GITHUB_WORKSPACE }}/scUTRquant
         
     strategy:
       fail-fast: false
@@ -23,7 +23,7 @@ jobs:
           path: ${{ env.SQ_PATH }}
       
       - name: view scUTRquant
-        run: ls -lh ${{ env.SQ_PATH }}
+        run: ls -lh $SQ_PATH
 
       - name: cache Conda
         uses: actions/cache@v2
