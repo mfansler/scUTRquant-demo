@@ -10,7 +10,7 @@ jobs:
       run:
         shell: bash -l {0}
     env:
-      SQ_PATH: ${{ env.GITHUB_WORKSPACE }}/scUTRquant
+      SQ_PATH: ${{ GITHUB_WORKSPACE }}/scUTRquant
         
     strategy:
       fail-fast: false
