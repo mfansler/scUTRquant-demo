@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v2
         env:
           # Increase this value to reset cache if hashed files have not changed
-          CACHE_NUMBER: 1
+          CACHE_NUMBER: 2
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -81,5 +81,5 @@ jobs:
         with:
           name: scUTRquant-outputs
           path: |
-            ${{ github.workspace }}/scUTRquant/data/sce/utrome_mm10_v1/$SQ_EXAMPLE*.Rds
-            ${{ github.workspace }}/scUTRquant/qc/umi_count/utrome_mm10_v1/$SQ_EXAMPLE*.html
+            ${{ github.workspace }}/scUTRquant/data/sce/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.Rds
+            ${{ github.workspace }}/scUTRquant/qc/umi_count/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.html
