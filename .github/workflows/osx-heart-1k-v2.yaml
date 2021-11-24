@@ -1,6 +1,10 @@
 name: OSX - heart_1k_v2
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/osx-heart-1k-v2.yaml'
 
 jobs:
   osx-heart-1k-v2:
@@ -66,8 +70,16 @@ jobs:
           cd $GITHUB_WORKSPACE/scUTRquant/examples/$SQ_EXAMPLE/
           . download.sh
           
-      - name: dryrun Snakemake
+      - name: run scUTRquant
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -np --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+          snakemake -p -j3 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+
+      - name: save outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: scUTRquant-outputs
+          path: |
+            ${{ github.workspace }}/scUTRquant/data/sce/utrome_mm10_v1/$SQ_EXAMPLE*.Rds
+            ${{ github.workspace }}/scUTRquant/qc/umi_count/utrome_mm10_v1/$SQ_EXAMPLE*.html
