@@ -74,7 +74,7 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j3 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+          snakemake -p -j2 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
 
       - name: save outputs
         uses: actions/upload-artifact@v2
