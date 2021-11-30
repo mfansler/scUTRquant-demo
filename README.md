@@ -13,6 +13,7 @@ Workflows are found under the [.github/workflows directory](.github/workflows).
 ## Results
 
 [![OSX - heart_1k_v2](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml)
+[![Linux - heart_1k_v2](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-heart-1k-v2.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-heart-1k-v2.yaml)
 
 ## Acknowledgements
 
