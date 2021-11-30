@@ -1,0 +1,85 @@
+name: Linux - heart_1k_v2
+
+on: 
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/linux-heart-1k-v2.yaml'
+
+jobs:
+  linux-heart-1k-v2:
+    name: Linux - heart_1k_v2
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -l {0}
+    env:
+      SQ_EXAMPLE: heart_1k_v2_fastq
+    
+    strategy:
+      fail-fast: false
+        
+    steps:
+      - name: clone scUTRquant
+        uses: actions/checkout@v2
+        with:
+          repository: Mayrlab/scUTRquant
+          path: scUTRquant
+      
+      - name: view scUTRquant
+        run: ls -lh $GITHUB_WORKSPACE/scUTRquant
+
+      - name: cache Conda
+        uses: actions/cache@v2
+        env:
+          # Increase this value to reset cache if hashed files have not changed
+          CACHE_NUMBER: 0
+        with:
+          path: ~/conda_pkgs_dir
+          key:
+            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}
+            
+      - name: install Mambaforge
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          use-mamba: true
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+          
+      - name: install Snakemake
+        run: |
+          mamba create \
+          --name snakemake \
+          -c conda-forge -c bioconda \
+          snakemake
+          
+      - name: verify Snakemake
+        run: |
+          conda activate snakemake
+          snakemake -h
+
+      - name: download sqUTRquant files
+        run: |
+          cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/utrome_mm10_v1
+          . download_utrome.sh
+          cd $GITHUB_WORKSPACE/scUTRquant/extdata/bxs
+          . download_10X_whitelists.sh
+      
+      - name: download example files
+        run: |
+          cd $GITHUB_WORKSPACE/scUTRquant/examples/$SQ_EXAMPLE/
+          . download.sh
+          
+      - name: run scUTRquant
+        run: |
+          conda activate snakemake
+          cd $GITHUB_WORKSPACE/scUTRquant
+          snakemake -p -j3 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+
+      - name: save outputs
+        uses: actions/upload-artifact@v2
+        with:
+          name: scUTRquant-outputs
+          path: |
+            ${{ github.workspace }}/scUTRquant/data/sce/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.Rds
+            ${{ github.workspace }}/scUTRquant/qc/umi_count/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.html
