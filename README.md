@@ -11,9 +11,15 @@ This repository demonstrates running examples from [the scUTRquant pipeline](htt
 Workflows are found under the [.github/workflows directory](.github/workflows).
 
 ## Results
+**Mouse (mm10)**
 
-[![OSX - heart_1k_v2](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml)
 [![Linux - heart_1k_v2](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-heart-1k-v2.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-heart-1k-v2.yaml)
+[![OSX - heart_1k_v2](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-heart-1k-v2.yaml)
+
+**Human (hg38)**
+
+[![Linux - pbmc_1k_v3](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-pbmc-1k-v3.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/linux-pbmc-1k-v3.yaml)
+[![OSX - pbmc_1k_v3](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-pbmc-1k-v3.yaml/badge.svg)](https://github.com/mfansler/scUTRquant-demo/actions/workflows/osx-pbmc-1k-v3.yaml)
 
 ## Acknowledgements
 
