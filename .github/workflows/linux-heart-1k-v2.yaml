@@ -15,7 +15,8 @@ jobs:
         shell: bash -l {0}
     env:
       SQ_EXAMPLE: heart_1k_v2_fastq
-    
+      SQ_TARGET: utrome_mm10_v1
+      
     strategy:
       fail-fast: false
         
@@ -61,7 +62,7 @@ jobs:
 
       - name: download sqUTRquant files
         run: |
-          cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/utrome_mm10_v1
+          cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/$SQ_TARGET
           . download_utrome.sh
           cd $GITHUB_WORKSPACE/scUTRquant/extdata/bxs
           . download_10X_whitelists.sh
@@ -82,5 +83,5 @@ jobs:
         with:
           name: scUTRquant-outputs
           path: |
-            ${{ github.workspace }}/scUTRquant/data/sce/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.Rds
-            ${{ github.workspace }}/scUTRquant/qc/umi_count/utrome_mm10_v1/${{ env.SQ_EXAMPLE }}*.html
+            ${{ github.workspace }}/scUTRquant/data/sce/${{ env.SQ_TARGET }}/${{ env.SQ_EXAMPLE }}*.Rds
+            ${{ github.workspace }}/scUTRquant/qc/umi_count/${{ env.SQ_TARGET }}/${{ env.SQ_EXAMPLE }}*.html

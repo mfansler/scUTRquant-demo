@@ -1,22 +1,22 @@
-name: OSX - heart_1k_v2
+name: OSX - pbmc_1k_v3
 
 on: 
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/osx-heart-1k-v2.yaml'
+      - '.github/workflows/osx-pbmc-1k-v3.yaml'
 
 jobs:
-  osx-heart-1k-v2:
-    name: ${{ matrix.os }} - heart_1k_v2
+  osx-pbmc-1k-v3:
+    name: ${{ matrix.os }} - pbmc_1k_v3
     runs-on: ${{ matrix.os }}
     defaults:
       run:
         shell: bash -l {0}
     env:
-      SQ_EXAMPLE: heart_1k_v2_fastq
-      SQ_TARGET: utrome_mm10_v1
-      
+      SQ_EXAMPLE: pbmc_1k_v3_fastq
+      SQ_TARGET: utrome_hg38_v1
+    
     strategy:
       fail-fast: false
       matrix:
@@ -36,7 +36,7 @@ jobs:
         uses: actions/cache@v2
         env:
           # Increase this value to reset cache if hashed files have not changed
-          CACHE_NUMBER: 2
+          CACHE_NUMBER: 0
         with:
           path: ~/conda_pkgs_dir
           key:

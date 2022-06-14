@@ -1,26 +1,24 @@
-name: OSX - heart_1k_v2
+name: Linux - pbmc_1k_v3
 
 on: 
   workflow_dispatch:
   push:
     paths:
-      - '.github/workflows/osx-heart-1k-v2.yaml'
+      - '.github/workflows/linux-pbmc-1k-v3.yaml'
 
 jobs:
-  osx-heart-1k-v2:
-    name: ${{ matrix.os }} - heart_1k_v2
-    runs-on: ${{ matrix.os }}
+  linux-pbmc-1k-v3:
+    name: Linux - pbmc_1k_v3
+    runs-on: ubuntu-latest
     defaults:
       run:
         shell: bash -l {0}
     env:
-      SQ_EXAMPLE: heart_1k_v2_fastq
-      SQ_TARGET: utrome_mm10_v1
-      
+      SQ_EXAMPLE: pbmc_1k_v3_fastq
+      SQ_TARGET: utrome_hg38_v1
+    
     strategy:
       fail-fast: false
-      matrix:
-        os: [macos-latest, macos-12]
         
     steps:
       - name: clone scUTRquant
@@ -36,7 +34,7 @@ jobs:
         uses: actions/cache@v2
         env:
           # Increase this value to reset cache if hashed files have not changed
-          CACHE_NUMBER: 2
+          CACHE_NUMBER: 0
         with:
           path: ~/conda_pkgs_dir
           key:
@@ -78,7 +76,7 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j3 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+          snakemake -p -j2 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
 
       - name: save outputs
         uses: actions/upload-artifact@v2
