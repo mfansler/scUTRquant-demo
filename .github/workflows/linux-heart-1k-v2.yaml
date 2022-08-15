@@ -15,7 +15,7 @@ jobs:
         shell: bash -l {0}
     env:
       SQ_EXAMPLE: heart_1k_v2_fastq
-      SQ_TARGET: utrome_mm10_v1
+      SQ_TARGET: utrome_mm10_v2
       
     strategy:
       fail-fast: false
