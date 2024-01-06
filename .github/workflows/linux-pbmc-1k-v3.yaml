@@ -22,50 +22,32 @@ jobs:
         
     steps:
       - name: clone scUTRquant
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           repository: Mayrlab/scUTRquant
+          ref: dev
           path: scUTRquant
       
       - name: view scUTRquant
         run: ls -lh $GITHUB_WORKSPACE/scUTRquant
 
-      - name: cache Conda
-        uses: actions/cache@v2
-        env:
-          # Increase this value to reset cache if hashed files have not changed
-          CACHE_NUMBER: 0
+      - name: install Miniforge
+        uses: conda-incubator/setup-miniconda@v3
         with:
-          path: ~/conda_pkgs_dir
-          key:
-            ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}
-            
-      - name: install Mambaforge
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-          miniforge-variant: Mambaforge
-          use-mamba: true
+          miniforge-version: latest
           channel-priority: flexible
-          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
           
       - name: install Snakemake
         run: |
           mamba create \
           --name snakemake \
           -c conda-forge -c bioconda \
-          snakemake
+          'snakemake>=6,<8'
           
       - name: verify Snakemake
         run: |
           conda activate snakemake
           snakemake -h
-
-      - name: download sqUTRquant files
-        run: |
-          cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/$SQ_TARGET
-          . download_utrome.sh
-          cd $GITHUB_WORKSPACE/scUTRquant/extdata/bxs
-          . download_10X_whitelists.sh
       
       - name: download example files
         run: |
