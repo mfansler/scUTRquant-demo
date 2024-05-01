@@ -20,7 +20,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest]
+        # NB: the macos-latest/macos-14 is arm64 with no amd64 emulation
+        os: [macos-13]
         
     steps:
       - name: clone scUTRquant
@@ -60,7 +61,7 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j3 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+          snakemake -p -j4 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
 
       - name: save outputs
         uses: actions/upload-artifact@v2
