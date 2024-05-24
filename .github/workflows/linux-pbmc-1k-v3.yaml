@@ -42,7 +42,7 @@ jobs:
           mamba create \
           --name snakemake \
           -c conda-forge -c bioconda \
-          'snakemake>=6,<8'
+          'snakemake>=6'
           
       - name: verify Snakemake
         run: |
@@ -61,7 +61,7 @@ jobs:
           snakemake -p -j2 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
 
       - name: save outputs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: scUTRquant-outputs
           path: |
