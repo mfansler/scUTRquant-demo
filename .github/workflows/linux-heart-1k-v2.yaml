@@ -30,42 +30,24 @@ jobs:
       
       - name: view scUTRquant
         run: ls -lh $GITHUB_WORKSPACE/scUTRquant
-
-      #- name: cache Conda
-      #  uses: actions/cache@v2
-      #  env:
-      #    # Increase this value to reset cache if hashed files have not changed
-      #    CACHE_NUMBER: 0
-      #  with:
-      #    path: ~/conda_pkgs_dir
-      #    key:
-      #      ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}
             
       - name: install Miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
           miniforge-version: latest
           channel-priority: flexible
-          #use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
           
       - name: install Snakemake
         run: |
           mamba create \
           --name snakemake \
           -c conda-forge -c bioconda \
-          'snakemake>=6,<8'
+          'snakemake>=6'
           
       - name: verify Snakemake
         run: |
           conda activate snakemake
           snakemake -h
-
-      #- name: download sqUTRquant files
-      #  run: |
-      #    cd $GITHUB_WORKSPACE/scUTRquant/extdata/targets/$SQ_TARGET
-      #    . download_utrome.sh
-      #    cd $GITHUB_WORKSPACE/scUTRquant/extdata/bxs
-      #    . download_10X_whitelists.sh
       
       - name: download example files
         run: |
@@ -79,7 +61,7 @@ jobs:
           snakemake -p -j2 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
 
       - name: save outputs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: scUTRquant-outputs
           path: |
