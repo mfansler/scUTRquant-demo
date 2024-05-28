@@ -1,6 +1,6 @@
 ## Overview
 
-This repository demonstrates running examples from [the scUTRquant pipeline](https://github.com/Mayrlab/scUTRquant) using GitHub-hosted runners via GitHub Actions. The examples start from raw scRNA-seq data and output 3' UTR isoform counts in the form of Bioconductor `SingleCellExperiment` objects. These demonstration workflows include the entire setup: 
+This repository demonstrates running examples from [the scUTRquant pipeline](https://github.com/Mayrlab/scUTRquant) using GitHub-hosted runners via GitHub Actions. The examples start from raw scRNA-seq data and output 3' UTR isoform counts in the form of Bioconductor `SingleCellExperiment` and (experimentally) scverse `AnnData` objects. These demonstration workflows include the entire setup: 
 
  - installing prerequisites (Mambaforge and Snakemake)
  - downloading resources
