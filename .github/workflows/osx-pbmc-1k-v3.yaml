@@ -61,12 +61,15 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j4 --use-conda --configfile examples/$SQ_EXAMPLE/config.yaml
+          snakemake -p -j4 --use-conda \
+          --configfile examples/$SQ_EXAMPLE/config.yaml \
+          --config output_format=h5ad,sce
 
       - name: save outputs
         uses: actions/upload-artifact@v4
         with:
           name: scUTRquant-outputs
           path: |
+            ${{ github.workspace }}/scUTRquant/data/h5ad/${{ env.SQ_TARGET }}/${{ env.SQ_EXAMPLE }}*.h5ad
             ${{ github.workspace }}/scUTRquant/data/sce/${{ env.SQ_TARGET }}/${{ env.SQ_EXAMPLE }}*.Rds
             ${{ github.workspace }}/scUTRquant/qc/umi_count/${{ env.SQ_TARGET }}/${{ env.SQ_EXAMPLE }}*.html
