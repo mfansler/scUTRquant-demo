@@ -42,7 +42,7 @@ jobs:
           mamba create \
           --name snakemake \
           -c conda-forge -c bioconda \
-          'snakemake>=6'
+          'snakemake>=6' 'pandas<3'
           
       - name: verify Snakemake
         run: |
