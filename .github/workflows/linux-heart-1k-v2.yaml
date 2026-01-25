@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Mayrlab/scUTRquant
-          ref: dev
+          ref: issue-100
           path: scUTRquant
       
       - name: view scUTRquant
