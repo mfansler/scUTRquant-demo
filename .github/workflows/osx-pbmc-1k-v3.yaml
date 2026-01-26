@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-latest]
+        os: [macos-15-intel]
         
     steps:
       - name: clone scUTRquant
@@ -60,7 +60,7 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j3 --use-conda \
+          snakemake -p -j4 --use-conda \
           --configfile examples/$SQ_EXAMPLE/config.yaml \
           --config output_format=h5ad,sce
 
