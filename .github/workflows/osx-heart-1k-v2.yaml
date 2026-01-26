@@ -20,8 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # NB: the macos-latest/macos-14 is arm64 with no amd64 emulation
-        os: [macos-13]
+        os: [macos-latest]
         
     steps:
       - name: clone scUTRquant
@@ -45,7 +44,7 @@ jobs:
           mamba create \
           --name snakemake \
           -c conda-forge -c bioconda \
-          'snakemake>=6'
+          'snakemake>=6' 'pandas<3'
           
       - name: verify Snakemake
         run: |
@@ -61,7 +60,7 @@ jobs:
         run: |
           conda activate snakemake
           cd $GITHUB_WORKSPACE/scUTRquant
-          snakemake -p -j4 --use-conda \
+          snakemake -p -j3 --use-conda \
           --configfile examples/$SQ_EXAMPLE/config.yaml \
           --config output_format=h5ad,sce
 
